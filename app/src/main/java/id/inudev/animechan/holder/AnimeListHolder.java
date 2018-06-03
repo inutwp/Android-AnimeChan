@@ -17,8 +17,7 @@ public class AnimeListHolder extends RecyclerView.ViewHolder {
 
     private TextView animeTitle;
     private TextView jpTitle;
-    private TextView des;
-    private TextView genre;
+    private TextView score;
 
     private ImageView img;
 
@@ -26,8 +25,7 @@ public class AnimeListHolder extends RecyclerView.ViewHolder {
         super(itemView);
         animeTitle = itemView.findViewById(R.id.animeTitle);
         jpTitle = itemView.findViewById(R.id.jptitle);
-        des = itemView.findViewById(R.id.des);
-        genre = itemView.findViewById(R.id.genre);
+        score = itemView.findViewById(R.id.score);
         img = itemView.findViewById(R.id.img);
     }
 
@@ -35,12 +33,11 @@ public class AnimeListHolder extends RecyclerView.ViewHolder {
     public void bind(AnimeData animeData){
 
         animeTitle.setText(animeData.title);
-        jpTitle.setText(animeData.jpTitle);
-        //des.setText(animeData.eps + " Eps");
-        //genre.setText(animeData.duration + " Minute");
+        jpTitle.setText(animeData.airingStart);
+        score.setText(animeData.source);
 
         Glide.with(itemView.getContext())
-                .load(animeData.img)
+                .load(animeData.imageUrl)
                 .apply(RequestOptions.centerCropTransform())
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(img);

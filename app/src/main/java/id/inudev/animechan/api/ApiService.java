@@ -5,6 +5,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiService {
-@GET("ceDZZReWSq?indent=2")
+@GET("2018/summer")
     Call<AnimeList> getAnime();
 }

@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiBuilder {
 
-    private static final String BASE_URL = "http://www.json-generator.com/api/json/get/";
+    private static final String BASE_URL = "http://api.jikan.moe/season/";
     public static Retrofit retrofit = null;
 
     public static Retrofit getClient(){

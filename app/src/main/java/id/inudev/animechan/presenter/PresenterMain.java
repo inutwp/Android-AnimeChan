@@ -4,13 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import id.inudev.animechan.MainActivity;
 import id.inudev.animechan.adapter.AnimeListAdapter;
 import id.inudev.animechan.api.ApiBuilder;
 import id.inudev.animechan.api.ApiService;
@@ -40,21 +37,21 @@ public class PresenterMain {
         animeListCall.enqueue(new Callback<AnimeList>() {
             @Override
             public void onResponse(@NonNull Call<AnimeList> call, @NonNull Response<AnimeList> response) {
-                List<AnimeData> animeData = Objects.requireNonNull(response.body()).getAnimeData();
-                mainView.setVisibilityProgressBar(View.GONE);
-                animeListAdapter = new AnimeListAdapter(animeData) {
-                    @Override
-                    protected void bindHolder(AnimeListHolder holder, final AnimeData animeData) {
-                        holder.bind(animeData);
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                if (response.isSuccessful()) {
+                    try {
+                        List<AnimeData> animeData = Objects.requireNonNull(response.body()).getAnimeData();
+                        mainView.setVisibilityProgressBar(View.GONE);
+                        animeListAdapter = new AnimeListAdapter(animeData) {
                             @Override
-                            public void onClick(View v) {
-                                Log.d("Click", "onClick: " + animeData.title);
+                            protected void bindHolder(AnimeListHolder holder, final AnimeData animeData) {
+                                holder.bind(animeData);
                             }
-                        });
+                        };
+                        mainView.setRV(animeListAdapter);
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();
                     }
-                };
-                mainView.setRV(animeListAdapter);
+                }
             }
 
             @Override
@@ -62,6 +59,5 @@ public class PresenterMain {
                 mainView.setVisibilityProgressBar(View.GONE);
             }
         });
-
     }
 }

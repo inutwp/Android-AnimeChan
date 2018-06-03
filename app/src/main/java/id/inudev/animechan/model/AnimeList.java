@@ -5,11 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class AnimeList {
-    @SerializedName("spring2018")
+    @SerializedName("season")
     private List<AnimeData> animeData;
-
-    public AnimeList(){
-    }
 
     public List<AnimeData> getAnimeData() {
         return animeData;
